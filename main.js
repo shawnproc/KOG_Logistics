@@ -193,54 +193,438 @@ window.addEventListener('scroll', () => {
   numsBg.style.transform = `translateY(${p * 18}%)`;
 }, { passive: true });
 
-/* ─── STEAM CANVAS ───────────────────────────────── */
-function initSteam() {
-  const c = $('#steam');
-  if (!c) return;
-  const ctx = c.getContext('2d');
-  const puffs = [];
+/* ─── SCROLL-DRIVEN TRUCK TERRAIN ────────────────── */
+function initDrive() {
+  const section = $('#drive');
+  const canvas  = $('#drive-canvas');
+  if (!section || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let W, H;
 
   function resize() {
-    c.width  = c.offsetWidth  || c.parentElement.offsetWidth;
-    c.height = c.offsetHeight || c.parentElement.offsetHeight;
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  function add(x, y) {
-    puffs.push({
+  // ── Terrain ──────────────────────────────────────
+  // Returns Y position for a world X coordinate on a given layer
+  function tY(worldX, layer) {
+    const configs = [
+      { base: 0.60, freqs: [0.00045, 0.0009,  0.003  ], amps: [55, 30, 10] }, // far
+      { base: 0.72, freqs: [0.0007,  0.0018,  0.006  ], amps: [60, 35, 12] }, // mid
+      { base: 0.82, freqs: [0.0012,  0.003,   0.012  ], amps: [45, 22, 8  ] }, // ground
+    ];
+    const c = configs[layer];
+    return H * c.base
+      + c.freqs.reduce((sum, f, i) => sum + Math.sin(worldX * f * Math.PI * 2) * c.amps[i], 0);
+  }
+
+  // Draw filled terrain polygon
+  function drawTerrain(worldOffset, layer) {
+    const palette = [
+      ['#0e1018', '#0a0c14'],
+      ['#131510', '#0f110d'],
+      ['#1a1610', '#13100b'],
+    ];
+    ctx.beginPath();
+    ctx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 3) {
+      ctx.lineTo(x, tY(x + worldOffset, layer));
+    }
+    ctx.lineTo(W, H);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(0, H * 0.55, 0, H);
+    g.addColorStop(0, palette[layer][0]);
+    g.addColorStop(1, palette[layer][1]);
+    ctx.fillStyle = g;
+    ctx.fill();
+  }
+
+  // Rocks scattered on terrain
+  function drawRocks(worldOffset, layer) {
+    const seed = layer * 17;
+    for (let i = 0; i < 18; i++) {
+      const wx = ((i * 1847 + seed) % (W * 3)) - worldOffset * (layer === 1 ? 0.5 : 0.25);
+      const x  = ((wx % (W + 200)) + W + 200) % (W + 200) - 100;
+      const gy = tY(wx + worldOffset, layer);
+      const rs = (3 + (i % 5) * 2.5) * (layer + 0.5);
+      ctx.beginPath();
+      ctx.ellipse(x, gy - rs * 0.4, rs * 1.3, rs * 0.8, (i % 3) * 0.4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${20 + (i%3)*5},${18 + (i%4)*4},${15},0.85)`;
+      ctx.fill();
+    }
+  }
+
+  // ── Scroll progress ───────────────────────────────
+  function getProgress() {
+    const rect  = section.getBoundingClientRect();
+    const total = section.offsetHeight - H;
+    return clamp(-rect.top / total, 0, 1);
+  }
+
+  // ── Particle pools ─────────────────────────────────
+  const exhaustPool = [];
+  const dustPool    = [];
+
+  function spawnExhaust(x, y) {
+    exhaustPool.push({
       x, y,
-      vx: (Math.random() - .42) * .7,
-      vy: -(1 + Math.random() * 1.4),
-      r: 8 + Math.random() * 10,
-      a: .2 + Math.random() * .15,
-      g: .5 + Math.random() * .9,
-      life: 1, decay: .006 + Math.random() * .004
+      vx: -0.4 - Math.random() * 0.6,
+      vy: -(1.3 + Math.random() * 1.6),
+      r:   7 + Math.random() * 9,
+      a:   0.28 + Math.random() * 0.14,
+      grow: 0.55 + Math.random() * 0.75,
+      life: 1, decay: 0.007 + Math.random() * 0.005
     });
   }
 
-  (function loop() {
-    ctx.clearRect(0, 0, c.width, c.height);
-    const ex = c.width * .2, ey = c.height * .72;
-    if (Math.random() < .4) add(ex + (Math.random() - .5) * 14, ey);
-    if (Math.random() < .2) add(ex + 22 + (Math.random() - .5) * 9, ey - 6);
+  function spawnDust(x, y) {
+    dustPool.push({
+      x, y,
+      vx: -1.8 - Math.random() * 2.5,
+      vy: -0.5 - Math.random() * 0.8,
+      r:   4 + Math.random() * 6,
+      a:   0.35 + Math.random() * 0.2,
+      grow: 0.5 + Math.random() * 0.6,
+      life: 1, decay: 0.022 + Math.random() * 0.012
+    });
+  }
 
-    for (let i = puffs.length - 1; i >= 0; i--) {
-      const p = puffs[i];
-      p.x += p.vx; p.y += p.vy; p.r += p.g; p.life -= p.decay;
-      if (p.life <= 0) { puffs.splice(i, 1); continue; }
+  function drawParticles(pool, rBase, rMid) {
+    for (let i = pool.length - 1; i >= 0; i--) {
+      const p = pool[i];
+      p.x += p.vx; p.y += p.vy;
+      p.r += p.grow; p.life -= p.decay;
+      if (p.life <= 0) { pool.splice(i, 1); continue; }
       const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-      g.addColorStop(0, `rgba(220,210,195,${p.life * p.a})`);
-      g.addColorStop(1, `rgba(220,210,195,0)`);
+      g.addColorStop(0,   `rgba(${rBase},${p.life * p.a})`);
+      g.addColorStop(0.5, `rgba(${rMid},${p.life * p.a * 0.5})`);
+      g.addColorStop(1,   `rgba(${rMid},0)`);
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = g;
       ctx.fill();
     }
-    requestAnimationFrame(loop);
-  })();
+  }
+
+  // ── Truck drawing ─────────────────────────────────
+  // Truck faces RIGHT. bx,by is the base center (ground contact).
+  // Exhaust stacks are drawn AT known positions so particles spawn there.
+  let stack1 = { x: 0, y: 0 }; // filled each frame so particles match
+  let stack2 = { x: 0, y: 0 };
+
+  function drawTruck(bx, by, angle, s) {
+    ctx.save();
+    ctx.translate(bx, by);
+    ctx.rotate(angle);
+
+    // Ground shadow
+    ctx.beginPath();
+    ctx.ellipse(-80*s, 6*s, 105*s, 7*s, 0, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(0,0,0,0.45)';
+    ctx.fill();
+
+    // ── TRAILER ────────────────────────────────────
+    ctx.beginPath();
+    ctx.roundRect(-215*s, -52*s, 135*s, 52*s, 2*s);
+    ctx.fillStyle = '#1e2228';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    // Trailer ribs
+    for (let i = 1; i < 5; i++) {
+      ctx.beginPath();
+      ctx.moveTo((-215 + i*25)*s, -52*s);
+      ctx.lineTo((-215 + i*25)*s, 0);
+      ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+      ctx.lineWidth = s;
+      ctx.stroke();
+    }
+    // Trailer top highlight
+    ctx.beginPath();
+    ctx.moveTo(-215*s, -52*s);
+    ctx.lineTo(-80*s, -52*s);
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // ── CAB ─────────────────────────────────────────
+    ctx.beginPath();
+    ctx.moveTo(-80*s, 0);
+    ctx.lineTo(-80*s, -55*s);
+    ctx.lineTo(-42*s, -55*s);
+    ctx.lineTo(-20*s, -72*s);
+    ctx.lineTo(32*s,  -72*s);
+    ctx.lineTo(32*s,  0);
+    ctx.closePath();
+    ctx.fillStyle = '#252b33';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Cab top highlight
+    ctx.beginPath();
+    ctx.moveTo(-80*s, -55*s);
+    ctx.lineTo(-42*s, -55*s);
+    ctx.lineTo(-20*s, -72*s);
+    ctx.lineTo(32*s,  -72*s);
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Windshield
+    ctx.beginPath();
+    ctx.moveTo(-40*s, -55*s);
+    ctx.lineTo(-18*s, -70*s);
+    ctx.lineTo(28*s,  -70*s);
+    ctx.lineTo(28*s,  -55*s);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(120,170,220,0.28)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(200,230,255,0.12)';
+    ctx.lineWidth = s;
+    ctx.stroke();
+    // Windshield reflection
+    ctx.beginPath();
+    ctx.moveTo(-30*s, -58*s);
+    ctx.lineTo(-15*s, -68*s);
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 2*s;
+    ctx.stroke();
+
+    // Grille / bumper
+    ctx.fillStyle = '#111518';
+    ctx.fillRect(20*s, -42*s, 12*s, 28*s);
+    ctx.fillStyle = '#0a0c0e';
+    ctx.fillRect(22*s, -14*s, 10*s, 8*s);  // bumper
+    for (let r = 0; r < 6; r++) {
+      ctx.beginPath();
+      ctx.moveTo(20*s, (-40 + r*5)*s);
+      ctx.lineTo(32*s, (-40 + r*5)*s);
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = .8;
+      ctx.stroke();
+    }
+
+    // Side mirror
+    ctx.fillStyle = '#1a1e24';
+    ctx.fillRect(30*s, -62*s, 5*s, 8*s);
+
+    // ── EXHAUST STACKS ──────────────────────────────
+    // Two chrome stacks behind cab roof — exact positions tracked for particles
+    const stackPositions = [[-62, -56], [-52, -56]];
+    stackPositions.forEach(([sx, sy], idx) => {
+      const stackHeight = 22*s;
+      // Pipe body
+      ctx.fillStyle = '#2e3438';
+      ctx.fillRect((sx-2.5)*s, (sy - stackHeight/s)*s, 5*s, stackHeight);
+      // Chrome sheen
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.fillRect((sx-1)*s, (sy - stackHeight/s)*s, 1.5*s, stackHeight);
+      // Flare at top
+      ctx.beginPath();
+      ctx.moveTo((sx-4.5)*s, (sy - stackHeight/s)*s);
+      ctx.lineTo((sx+4.5)*s, (sy - stackHeight/s)*s);
+      ctx.lineTo((sx+3)*s, (sy - stackHeight/s + 5)*s);
+      ctx.lineTo((sx-3)*s, (sy - stackHeight/s + 5)*s);
+      ctx.closePath();
+      ctx.fillStyle = '#3a4248';
+      ctx.fill();
+    });
+
+    // ── HEADLIGHTS ─────────────────────────────────
+    ctx.save();
+    ctx.shadowColor  = 'rgba(255,240,180,0.7)';
+    ctx.shadowBlur   = 22*s;
+    ctx.beginPath();
+    ctx.arc(32*s, -25*s, 5*s, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,248,210,0.95)';
+    ctx.fill();
+    ctx.restore();
+    // Light cone
+    const lc = ctx.createRadialGradient(32*s, -25*s, 0, 80*s, -22*s, 80*s);
+    lc.addColorStop(0, 'rgba(255,248,200,0.10)');
+    lc.addColorStop(1, 'rgba(255,248,200,0)');
+    ctx.beginPath();
+    ctx.moveTo(32*s, -25*s);
+    ctx.lineTo(120*s, -10*s);
+    ctx.lineTo(120*s, -38*s);
+    ctx.closePath();
+    ctx.fillStyle = lc;
+    ctx.fill();
+
+    // ── WHEELS ─────────────────────────────────────
+    const wheels = [
+      [16, 0, 15],    // front
+      [-62, 0, 15],   // rear cab 1
+      [-73, 0, 15],   // rear cab 2
+      [-168, 0, 15],  // trailer rear 1
+      [-180, 0, 15],  // trailer rear 2
+    ];
+    wheels.forEach(([wx, wy, wr]) => {
+      // Tire
+      ctx.beginPath();
+      ctx.arc(wx*s, wy*s, wr*s, 0, Math.PI*2);
+      ctx.fillStyle = '#0e1012';
+      ctx.fill();
+      // Sidewall
+      ctx.beginPath();
+      ctx.arc(wx*s, wy*s, wr*s, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = 2*s;
+      ctx.stroke();
+      // Rim
+      ctx.beginPath();
+      ctx.arc(wx*s, wy*s, wr*s*0.58, 0, Math.PI*2);
+      ctx.fillStyle = '#292e36';
+      ctx.fill();
+      // Spokes
+      for (let sp = 0; sp < 6; sp++) {
+        const a = (sp / 6) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(wx*s, wy*s);
+        ctx.lineTo(wx*s + Math.cos(a)*wr*s*0.52, wy*s + Math.sin(a)*wr*s*0.52);
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+        ctx.lineWidth = s*0.8;
+        ctx.stroke();
+      }
+      // Center cap
+      ctx.beginPath();
+      ctx.arc(wx*s, wy*s, wr*s*0.18, 0, Math.PI*2);
+      ctx.fillStyle = '#555';
+      ctx.fill();
+    });
+
+    ctx.restore();
+
+    // After restoring, record world-space stack positions for particle emission
+    // We approximate: transform the local stack tip to world space
+    const cosA = Math.cos(angle), sinA = Math.sin(angle);
+    stackPositions.forEach(([sx, sy], idx) => {
+      const lx = sx * s;
+      const ly = (sy - 22) * s; // top of stack
+      const wx2 = bx + lx * cosA - ly * sinA;
+      const wy2 = by + lx * sinA + ly * cosA;
+      if (idx === 0) { stack1.x = wx2; stack1.y = wy2; }
+      else           { stack2.x = wx2; stack2.y = wy2; }
+    });
+  }
+
+  // ── Physics state ─────────────────────────────────
+  let truckY = 0, truckVY = 0, truckAngle = 0;
+  let prevProgress = 0;
+  let active = false;
+
+  // Only run RAF when section is in view
+  const io = new IntersectionObserver(entries => {
+    active = entries[0].isIntersecting;
+  }, { threshold: 0 });
+  io.observe(section);
+
+  // ── Main render loop ──────────────────────────────
+  function draw() {
+    requestAnimationFrame(draw);
+    if (!active) return;
+
+    const progress  = getProgress();
+    const worldOff  = progress * W * 2.8;   // how far terrain has scrolled
+    const truckX    = W * 0.40;
+
+    // Ground Y at truck position
+    const groundY   = tY(truckX + worldOff, 2);
+
+    // Spring physics — truck follows terrain
+    truckVY += (groundY - truckY) * 0.30;
+    truckVY *= 0.70;
+    truckY  += truckVY;
+
+    // Slope → rotation
+    const dy = tY(truckX + worldOff + 22, 2) - tY(truckX + worldOff - 22, 2);
+    truckAngle += (Math.atan2(dy, 44) * 0.55 - truckAngle) * 0.18;
+
+    // ── Draw ─────────────────────────────────────────
+    ctx.clearRect(0, 0, W, H);
+
+    // Sky gradient
+    const sky = ctx.createLinearGradient(0, 0, 0, H * 0.62);
+    sky.addColorStop(0,   '#060810');
+    sky.addColorStop(0.5, '#0c1220');
+    sky.addColorStop(1,   '#131812');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H * 0.62);
+
+    // Stars
+    ctx.fillStyle = 'rgba(210,215,230,0.5)';
+    for (let i = 0; i < 70; i++) {
+      const sx = (i * 173.3 + worldOff * 0.02) % W;
+      const sy = (i * 97.1) % (H * 0.48);
+      ctx.beginPath();
+      ctx.arc(sx, sy, i % 4 === 0 ? 1.1 : 0.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // Far mountain layer
+    drawTerrain(worldOff * 0.18, 0);
+
+    // Mid terrain layer
+    drawTerrain(worldOff * 0.45, 1);
+    drawRocks(worldOff * 0.45, 1);
+
+    // Dust (emitted behind truck, draw before truck so truck is on top)
+    drawParticles(dustPool, '145,115,72', '120,92,55');
+
+    // Near terrain (ground)
+    drawTerrain(worldOff, 2);
+    drawRocks(worldOff, 2);
+
+    // Truck
+    const s = clamp(W / 1200, 0.55, 1.1);
+    drawTruck(truckX, truckY, truckAngle, s);
+
+    // Exhaust (drawn after truck so it sits on top)
+    drawParticles(exhaustPool, '215,205,190', '185,178,165');
+
+    // Vignette
+    const vig = ctx.createRadialGradient(W/2, H/2, H*0.15, W/2, H/2, H*0.85);
+    vig.addColorStop(0.5, 'rgba(8,8,8,0)');
+    vig.addColorStop(1,   'rgba(8,8,8,0.7)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, W, H);
+
+    // ── Particle emission ─────────────────────────────
+    const speed = Math.abs(progress - prevProgress);
+    if (speed > 0.0008) {
+      // Exhaust from both stacks (exact world positions set by drawTruck)
+      if (Math.random() < 0.6) spawnExhaust(stack1.x, stack1.y);
+      if (Math.random() < 0.5) spawnExhaust(stack2.x, stack2.y);
+      // Dust from rear wheels
+      if (Math.random() < 0.8) {
+        const cosA = Math.cos(truckAngle), sinA = Math.sin(truckAngle);
+        [[-62, 0], [-73, 0], [-168, 0]].forEach(([wx, wy]) => {
+          const wS = s;
+          const dx = truckX + (wx*wS)*cosA - (wy*wS)*sinA;
+          const dy2 = truckY + (wx*wS)*sinA + (wy*wS)*cosA;
+          if (Math.random() < 0.6) spawnDust(dx, dy2);
+        });
+      }
+    }
+    prevProgress = progress;
+
+    // Progress bar
+    const bar = $('#drive-bar');
+    if (bar) bar.style.width = (progress * 100) + '%';
+  }
+
+  // Init truck Y
+  truckY = tY(W * 0.4, 2);
+  draw();
 }
-initSteam();
+initDrive();
 
 /* ─── SCROLL REVEALS ─────────────────────────────── */
 function initReveal() {

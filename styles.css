@@ -287,6 +287,54 @@ body.hovering #cur-ring {
 .manifesto-p .word.lit { color: var(--bone); }
 
 /* ════════════════════════════════════════════════════
+   DRIVE — scroll-driven truck terrain
+════════════════════════════════════════════════════ */
+#drive {
+  height: 300vh;
+  position: relative;
+}
+.drive-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #080a0f;
+}
+#drive-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.drive-label {
+  position: absolute;
+  bottom: 4rem;
+  left: 3rem;
+  z-index: 10;
+  pointer-events: none;
+}
+.drive-label p {
+  font-size: .72rem;
+  font-weight: 300;
+  letter-spacing: .12em;
+  color: rgba(233,230,224,.4);
+  text-transform: uppercase;
+  margin-top: .3rem;
+}
+.drive-progress-wrap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,.06);
+  z-index: 10;
+}
+.drive-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--rust);
+  transition: width .05s linear;
+}
+
+/* ════════════════════════════════════════════════════
    CAPABILITIES — hover reveal
 ════════════════════════════════════════════════════ */
 #capabilities {
