@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 192">
+  <defs>
+    <!-- Cab / body -->
+    <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#2c3444"/>
+      <stop offset="45%"  stop-color="#1e2738"/>
+      <stop offset="100%" stop-color="#111820"/>
+    </linearGradient>
+    <!-- Hood long nose -->
+    <linearGradient id="hood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#28303e"/>
+      <stop offset="55%"  stop-color="#1b2230"/>
+      <stop offset="100%" stop-color="#0e1318"/>
+    </linearGradient>
+    <!-- Trailer -->
+    <linearGradient id="trailer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#22262e"/>
+      <stop offset="100%" stop-color="#141820"/>
+    </linearGradient>
+    <!-- Chrome / stacks -->
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#4a5260"/>
+      <stop offset="30%"  stop-color="#c0c8d4"/>
+      <stop offset="60%"  stop-color="#8a92a0"/>
+      <stop offset="100%" stop-color="#3a4250"/>
+    </linearGradient>
+    <linearGradient id="chromeV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#b0b8c8"/>
+      <stop offset="50%"  stop-color="#7a8290"/>
+      <stop offset="100%" stop-color="#4a5260"/>
+    </linearGradient>
+    <!-- Fuel tank -->
+    <linearGradient id="tank" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#181c22"/>
+      <stop offset="40%"  stop-color="#282e38"/>
+      <stop offset="100%" stop-color="#181c22"/>
+    </linearGradient>
+    <!-- Windshield -->
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="rgba(130,180,230,0.55)"/>
+      <stop offset="100%" stop-color="rgba(60,100,170,0.22)"/>
+    </linearGradient>
+    <!-- Wheel tyre -->
+    <radialGradient id="tyre" cx="50%" cy="40%" r="55%">
+      <stop offset="0%"   stop-color="#2a2a2a"/>
+      <stop offset="60%"  stop-color="#111"/>
+      <stop offset="100%" stop-color="#060606"/>
+    </radialGradient>
+    <!-- Wheel rim -->
+    <radialGradient id="rim" cx="38%" cy="32%" r="62%">
+      <stop offset="0%"   stop-color="#909aa8"/>
+      <stop offset="50%"  stop-color="#4a5260"/>
+      <stop offset="100%" stop-color="#282e38"/>
+    </radialGradient>
+    <!-- Headlight glow -->
+    <radialGradient id="hglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="rgba(255,250,210,1)"/>
+      <stop offset="100%" stop-color="rgba(255,250,210,0)"/>
+    </radialGradient>
+    <!-- Shadow -->
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="rgba(0,0,0,0.45)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="248" cy="187" rx="230" ry="7" fill="url(#shadow)"/>
+
+  <!-- ══════════ TRAILER ══════════ -->
+  <rect x="2"   y="64"  width="162" height="98" rx="2" fill="url(#trailer)"/>
+  <!-- Trailer top edge highlight -->
+  <rect x="2"   y="64"  width="162" height="2.5" rx="1" fill="rgba(255,255,255,0.06)"/>
+  <!-- Trailer bottom rail -->
+  <rect x="2"   y="158" width="162" height="5"   rx="1" fill="rgba(0,0,0,0.5)"/>
+  <!-- Side ribs -->
+  <line x1="34"  y1="66"  x2="34"  y2="160" stroke="rgba(0,0,0,0.22)" stroke-width="1.5"/>
+  <line x1="66"  y1="66"  x2="66"  y2="160" stroke="rgba(0,0,0,0.22)" stroke-width="1.5"/>
+  <line x1="98"  y1="66"  x2="98"  y2="160" stroke="rgba(0,0,0,0.22)" stroke-width="1.5"/>
+  <line x1="130" y1="66"  x2="130" y2="160" stroke="rgba(0,0,0,0.22)" stroke-width="1.5"/>
+  <line x1="155" y1="66"  x2="155" y2="160" stroke="rgba(0,0,0,0.22)" stroke-width="1.5"/>
+  <!-- KOG branding strip -->
+  <rect x="2"   y="108" width="162" height="2" fill="rgba(192,74,28,0.35)"/>
+  <!-- Reflector tape at bottom -->
+  <rect x="2"   y="155" width="162" height="3" fill="rgba(255,80,20,0.25)"/>
+  <rect x="50"  y="155" width="10"  height="3" fill="rgba(255,200,50,0.3)"/>
+  <rect x="100" y="155" width="10"  height="3" fill="rgba(255,200,50,0.3)"/>
+
+  <!-- ══════════ FUEL TANKS ══════════ -->
+  <rect x="163" y="122" width="30" height="40" rx="7" fill="url(#tank)"/>
+  <rect x="164" y="123" width="5"  height="38" rx="3" fill="rgba(255,255,255,0.05)"/>
+  <!-- Strap -->
+  <rect x="163" y="138" width="30" height="3" fill="rgba(0,0,0,0.35)"/>
+
+  <!-- ══════════ SLEEPER CAB ══════════ -->
+  <rect x="190" y="50" width="68" height="112" rx="3" fill="url(#cab)"/>
+  <!-- Sleeper top highlight -->
+  <rect x="190" y="50" width="68" height="2" fill="rgba(255,255,255,0.07)"/>
+  <!-- Sleeper window -->
+  <rect x="198" y="64" width="32" height="24" rx="3" fill="url(#glass)"/>
+  <line x1="214" y1="64" x2="214" y2="88" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <!-- Sleeper window frame -->
+  <rect x="198" y="64" width="32" height="24" rx="3" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <!-- Sleeper front join line -->
+  <line x1="258" y1="50" x2="258" y2="162" stroke="rgba(0,0,0,0.3)" stroke-width="2"/>
+
+  <!-- ══════════ MAIN CAB ══════════ -->
+  <!-- Cab body -->
+  <path d="M258 50 L316 50 L338 72 L346 90 L346 162 L258 162 Z" fill="url(#cab)"/>
+  <!-- Cab roof highlight -->
+  <path d="M258 50 L316 50 L338 72" stroke="rgba(255,255,255,0.09)" stroke-width="2" fill="none"/>
+  <!-- Air fairing on top of cab -->
+  <path d="M258 50 L346 50 L346 42 L264 40 Z" fill="#1a2030"/>
+  <rect x="258" y="40" width="88" height="2" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- Windshield -->
+  <path d="M264 52 L314 52 L336 74 L336 92 L264 92 Z" fill="url(#glass)"/>
+  <path d="M264 52 L314 52 L336 74 L336 92 L264 92 Z" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none"/>
+  <!-- Windshield reflections -->
+  <path d="M270 56 L310 56" stroke="rgba(255,255,255,0.09)" stroke-width="3"/>
+  <path d="M272 62 L296 62" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <!-- A-pillar divider -->
+  <line x1="300" y1="52" x2="300" y2="92" stroke="rgba(0,0,0,0.28)" stroke-width="2.5"/>
+
+  <!-- Cab door panel -->
+  <path d="M264 94 L344 94 L344 160 L264 160 Z" fill="rgba(0,0,0,0.06)"/>
+  <path d="M264 94 L344 94" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <!-- Door seam -->
+  <line x1="326" y1="94" x2="326" y2="160" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+  <!-- Door handle -->
+  <rect x="330" y="124" width="12" height="5" rx="2.5" fill="rgba(255,255,255,0.18)"/>
+  <!-- Step plate -->
+  <rect x="264" y="150" width="40" height="8" rx="1" fill="rgba(0,0,0,0.4)"/>
+  <line x1="268" y1="152" x2="300" y2="152" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <line x1="268" y1="155" x2="300" y2="155" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Side mirror arm -->
+  <line x1="344" y1="62" x2="354" y2="52" stroke="#1a2030" stroke-width="3"/>
+  <!-- Mirror head -->
+  <rect x="350" y="44" width="16" height="22" rx="3" fill="#1e2530"/>
+  <rect x="352" y="46" width="12" height="18" rx="2" fill="#283040"/>
+
+  <!-- ══════════ HOOD — LONG NOSE ══════════ -->
+  <path d="M346 88 L346 162 L490 162 L498 150 L500 132 L500 98 L490 82 L462 74 L346 74 Z" fill="url(#hood)"/>
+  <!-- Hood top edge highlight -->
+  <path d="M346 74 L462 74 L490 82 L500 98" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" fill="none"/>
+  <!-- Hood crease line -->
+  <path d="M346 122 L498 118" stroke="rgba(255,255,255,0.04)" stroke-width="1.5"/>
+  <!-- Hood panel break -->
+  <path d="M346 74 L346 162" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+  <!-- Air intake vent on hood -->
+  <rect x="378" y="98"  width="45" height="18" rx="2" fill="rgba(0,0,0,0.35)"/>
+  <line x1="383" y1="101" x2="418" y2="101" stroke="rgba(255,255,255,0.08)" stroke-width="1.2"/>
+  <line x1="383" y1="106" x2="418" y2="106" stroke="rgba(255,255,255,0.08)" stroke-width="1.2"/>
+  <line x1="383" y1="111" x2="418" y2="111" stroke="rgba(255,255,255,0.08)" stroke-width="1.2"/>
+
+  <!-- Hood ornament / stack base surrounds (on hood behind cab) -->
+  <rect x="270" y="54"  width="14" height="8" rx="2" fill="rgba(0,0,0,0.5)"/>
+  <rect x="286" y="54"  width="14" height="8" rx="2" fill="rgba(0,0,0,0.5)"/>
+
+  <!-- ══════════ GRILLE & BUMPER ══════════ -->
+  <!-- Bumper main -->
+  <path d="M488 138 L500 128 L506 145 L506 168 L488 168 Z" fill="url(#chromeV)"/>
+  <!-- Bumper lower lip -->
+  <rect x="488" y="160" width="18" height="6" rx="1" fill="rgba(180,188,200,0.6)"/>
+  <!-- Grille surround -->
+  <rect x="486" y="82"  width="14" height="56" rx="2" fill="#080c10"/>
+  <!-- Grille bars -->
+  <line x1="486" y1="92"  x2="500" y2="92"  stroke="rgba(180,192,210,0.18)" stroke-width="1.5"/>
+  <line x1="486" y1="100" x2="500" y2="100" stroke="rgba(180,192,210,0.18)" stroke-width="1.5"/>
+  <line x1="486" y1="108" x2="500" y2="108" stroke="rgba(180,192,210,0.18)" stroke-width="1.5"/>
+  <line x1="486" y1="116" x2="500" y2="116" stroke="rgba(180,192,210,0.18)" stroke-width="1.5"/>
+  <line x1="486" y1="124" x2="500" y2="124" stroke="rgba(180,192,210,0.18)" stroke-width="1.5"/>
+  <line x1="486" y1="132" x2="500" y2="132" stroke="rgba(180,192,210,0.18)" stroke-width="1.5"/>
+
+  <!-- ══════════ HEADLIGHTS ══════════ -->
+  <!-- Housing -->
+  <ellipse cx="492" cy="97" rx="8"  ry="6"  fill="#050810"/>
+  <!-- Lens fill -->
+  <ellipse cx="492" cy="97" rx="6"  ry="4.5" fill="url(#hglow)"/>
+  <!-- Bright spot -->
+  <ellipse cx="492" cy="97" rx="4"  ry="3"  fill="rgba(255,252,224,0.95)"/>
+  <!-- Light cone -->
+  <path d="M498 94 L520 86 L520 108 L498 100 Z" fill="rgba(255,248,200,0.06)"/>
+  <!-- Fog light -->
+  <rect x="488" y="106" width="10" height="4" rx="2" fill="rgba(255,190,60,0.55)"/>
+  <!-- Running lights -->
+  <rect x="488" y="78"  width="10" height="3" rx="1.5" fill="rgba(255,130,30,0.45)"/>
+
+  <!-- ══════════ CHROME EXHAUST STACKS ══════════ -->
+  <!-- Stack 1 — left (at x≈272, behind cab) -->
+  <rect x="268"  y="4"   width="9"  height="52" rx="2"   fill="url(#chrome)"/>
+  <!-- Stack 1 shine -->
+  <rect x="270"  y="5"   width="2"  height="50" rx="1"   fill="rgba(255,255,255,0.22)"/>
+  <!-- Stack 1 flare top -->
+  <path d="M264 4 L278 4 L275 10 L267 10 Z"       fill="url(#chromeV)"/>
+  <!-- Stack 1 opening (dark inside) -->
+  <ellipse cx="271" cy="4" rx="4.5" ry="2" fill="#050810"/>
+
+  <!-- Stack 2 — right (at x≈285, slightly offset) -->
+  <rect x="283"  y="6"   width="9"  height="50" rx="2"   fill="url(#chrome)"/>
+  <rect x="285"  y="7"   width="2"  height="48" rx="1"   fill="rgba(255,255,255,0.2)"/>
+  <path d="M279 6 L293 6 L290 12 L282 12 Z"       fill="url(#chromeV)"/>
+  <ellipse cx="287" cy="6" rx="4.5" ry="2" fill="#050810"/>
+
+  <!-- ══════════ CHASSIS ══════════ -->
+  <rect x="163" y="158" width="185" height="6"  fill="#0a0c0e"/>
+  <rect x="163" y="158" width="185" height="1.5" fill="rgba(255,255,255,0.03)"/>
+
+  <!-- ══════════ WHEELS ══════════ -->
+
+  <!-- Trailer rear axle — outer tyre -->
+  <circle cx="52"  cy="165" r="22" fill="url(#tyre)"/>
+  <!-- Tyre sidewall ring -->
+  <circle cx="52"  cy="165" r="22" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <!-- Rim -->
+  <circle cx="52"  cy="165" r="14" fill="url(#rim)"/>
+  <!-- Spokes -->
+  <line x1="52" y1="153" x2="52" y2="177" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <line x1="40" y1="157" x2="64" y2="173" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <line x1="40" y1="173" x2="64" y2="157" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <!-- Hub cap -->
+  <circle cx="52"  cy="165" r="5.5" fill="#7a8290"/>
+  <circle cx="52"  cy="165" r="3"   fill="#4a5260"/>
+  <!-- Lug nuts -->
+  <circle cx="52"  cy="152" r="1.8" fill="#888"/>
+  <circle cx="64"  cy="159" r="1.8" fill="#888"/>
+  <circle cx="64"  cy="171" r="1.8" fill="#888"/>
+  <circle cx="52"  cy="178" r="1.8" fill="#888"/>
+  <circle cx="40"  cy="171" r="1.8" fill="#888"/>
+  <circle cx="40"  cy="159" r="1.8" fill="#888"/>
+
+  <!-- Trailer rear axle — inner tyre (dual) -->
+  <circle cx="74"  cy="165" r="20" fill="url(#tyre)"/>
+  <circle cx="74"  cy="165" r="12" fill="url(#rim)"/>
+  <circle cx="74"  cy="165" r="4.5" fill="#6a7280"/>
+  <circle cx="74"  cy="165" r="2.5" fill="#4a5260"/>
+
+  <!-- Drive axle — outer -->
+  <circle cx="222" cy="165" r="22" fill="url(#tyre)"/>
+  <circle cx="222" cy="165" r="22" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <circle cx="222" cy="165" r="14" fill="url(#rim)"/>
+  <line x1="222" y1="153" x2="222" y2="177" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <line x1="210" y1="157" x2="234" y2="173" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <line x1="210" y1="173" x2="234" y2="157" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <circle cx="222" cy="165" r="5.5" fill="#7a8290"/>
+  <circle cx="222" cy="165" r="3"   fill="#4a5260"/>
+  <circle cx="222" cy="152" r="1.8" fill="#888"/>
+  <circle cx="234" cy="159" r="1.8" fill="#888"/>
+  <circle cx="234" cy="171" r="1.8" fill="#888"/>
+  <circle cx="222" cy="178" r="1.8" fill="#888"/>
+  <circle cx="210" cy="171" r="1.8" fill="#888"/>
+  <circle cx="210" cy="159" r="1.8" fill="#888"/>
+
+  <!-- Drive axle — inner (dual) -->
+  <circle cx="244" cy="165" r="20" fill="url(#tyre)"/>
+  <circle cx="244" cy="165" r="12" fill="url(#rim)"/>
+  <circle cx="244" cy="165" r="4.5" fill="#6a7280"/>
+  <circle cx="244" cy="165" r="2.5" fill="#4a5260"/>
+
+  <!-- Front steer axle -->
+  <circle cx="464" cy="165" r="22" fill="url(#tyre)"/>
+  <circle cx="464" cy="165" r="22" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <circle cx="464" cy="165" r="14" fill="url(#rim)"/>
+  <line x1="464" y1="153" x2="464" y2="177" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <line x1="452" y1="157" x2="476" y2="173" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <line x1="452" y1="173" x2="476" y2="157" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+  <!-- Hubcap (steering axle has different style) -->
+  <circle cx="464" cy="165" r="8"   fill="url(#rim)"/>
+  <circle cx="464" cy="165" r="3.5" fill="#7a8290"/>
+  <circle cx="464" cy="152" r="1.8" fill="#888"/>
+  <circle cx="476" cy="159" r="1.8" fill="#888"/>
+  <circle cx="476" cy="171" r="1.8" fill="#888"/>
+  <circle cx="464" cy="178" r="1.8" fill="#888"/>
+  <circle cx="452" cy="171" r="1.8" fill="#888"/>
+  <circle cx="452" cy="159" r="1.8" fill="#888"/>
+</svg>
