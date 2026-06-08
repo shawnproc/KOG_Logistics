@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KOG Logistical Support</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">KOG</div>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Keystone Operations Group</h1>
+      <p class="subtitle">Logistical Support &amp; Mission-Ready Solutions</p>
+      <a href="#contact" class="btn">Get In Touch</a>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Services</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">&#128666;</div>
+          <h3>Supply Chain Management</h3>
+          <p>End-to-end coordination of procurement, transport, and delivery to keep operations running without disruption.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128203;</div>
+          <h3>Mission Planning Support</h3>
+          <p>Detailed logistical planning integrated with operational timelines to ensure assets are where they need to be.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128339;</div>
+          <h3>Real-Time Tracking</h3>
+          <p>Live visibility into shipments, personnel movements, and resource allocation across all active operations.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#9881;</div>
+          <h3>Equipment Maintenance Coordination</h3>
+          <p>Scheduled and reactive maintenance management to maximize readiness and minimize downtime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section alt">
+    <div class="container two-col">
+      <div>
+        <h2>About KOG</h2>
+        <p>Keystone Operations Group provides professional logistical support to organizations that demand precision, reliability, and discretion. With deep experience across complex operational environments, our team builds the supply backbone that keeps missions moving forward.</p>
+        <p>We operate with a mission-first mindset — anticipating needs, eliminating bottlenecks, and delivering results under pressure.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Mission Completion Rate</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">24/7</span>
+          <span class="stat-label">Operational Support</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Years of Experience</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Contact</h2>
+      <p class="contact-intro">Ready to support your next operation. Reach out to discuss your logistical needs.</p>
+      <form id="contact-form">
+        <div class="form-row">
+          <input type="text" id="name" placeholder="Name" required />
+          <input type="email" id="email" placeholder="Email" required />
+        </div>
+        <input type="text" id="org" placeholder="Organization" />
+        <textarea id="message" rows="5" placeholder="Describe your logistical support needs..." required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+        <p id="form-status" class="form-status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Keystone Operations Group. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
