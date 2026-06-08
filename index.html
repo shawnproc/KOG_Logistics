@@ -6,199 +6,245 @@
   <title>KOG — Keystone Operations Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&family=Oswald:wght@200;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&family=Barlow+Condensed:ital,wght@0,300;0,700;0,900;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- GRAIN OVERLAY -->
+  <div class="grain"></div>
 
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
       <div class="nav-logo">
-        <span class="logo-kog">KOG</span>
-        <span class="logo-rule"></span>
-        <span class="logo-sub">KEYSTONE OPERATIONS GROUP</span>
+        <span class="logo-mark">KOG</span>
+        <span class="logo-divider"></span>
+        <span class="logo-wordmark">KEYSTONE OPERATIONS GROUP</span>
       </div>
       <ul class="nav-links">
-        <li><a href="#mission">Mission</a></li>
-        <li><a href="#capabilities">Capabilities</a></li>
-        <li><a href="#operations">Operations</a></li>
-        <li><a href="#contact" class="nav-cta">Deploy Us</a></li>
+        <li><a href="#scene-02">Operations</a></li>
+        <li><a href="#scene-03">Capabilities</a></li>
+        <li><a href="#scene-04">By The Numbers</a></li>
+        <li><a href="#scene-05" class="nav-deploy">Deploy Us</a></li>
       </ul>
+      <div class="nav-status">
+        <span class="pulse-dot"></span>
+        <span>OPERATIONAL</span>
+      </div>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-overlay"></div>
-    <div class="hero-scanlines"></div>
+  <!-- SCENE 01 — HERO / DRIVER POV -->
+  <section id="scene-01" class="scene scene-hero">
+    <div class="scene-bg" style="background-image:url('https://source.unsplash.com/1920x1080/?semi+truck+driving+road+cinematic')"></div>
+    <div class="grade-overlay"></div>
+    <div class="letterbox top"></div>
+    <div class="letterbox bottom"></div>
+    <div class="scanline"></div>
 
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="dot"></span>
-        <span>CLASSIFIED — LOGISTICS DIVISION</span>
-        <span class="dot"></span>
+    <div class="scene-num">01 / 05</div>
+
+    <div class="hero-hud left">
+      <div class="hud-row"><span class="hud-k">MISSION</span><span class="hud-v">ACTIVE</span></div>
+      <div class="hud-row"><span class="hud-k">STATUS</span><span class="hud-v green">GO</span></div>
+      <div class="hud-row"><span class="hud-k">ETA</span><span class="hud-v" id="eta">--:--</span></div>
+    </div>
+
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <span class="tick"></span>
+        KEYSTONE OPERATIONS GROUP
+        <span class="tick"></span>
       </div>
-      <h1 class="hero-title">
-        <span class="line-1">MOVE.</span>
-        <span class="line-2">SUPPLY.</span>
-        <span class="line-3">DOMINATE.</span>
+      <h1 class="hero-h1">
+        <em>WE MOVE</em><br />
+        WHAT OTHERS<br />
+        <span class="outline-text">CAN'T.</span>
       </h1>
-      <p class="hero-sub">We deliver where others can't. On time. Every time. No excuses.</p>
-      <div class="hero-actions">
-        <a href="#capabilities" class="btn-primary">VIEW CAPABILITIES</a>
-        <a href="#contact" class="btn-ghost">REQUEST SUPPORT</a>
+      <p class="hero-tagline">Full-spectrum logistical support — every terrain, every condition, zero compromise.</p>
+      <div class="hero-ctas">
+        <a href="#scene-03" class="cta-main">VIEW CAPABILITIES</a>
+        <a href="#scene-05" class="cta-ghost">GET SUPPORT</a>
       </div>
     </div>
 
-    <div class="hero-hud">
-      <div class="hud-item"><span class="hud-label">STATUS</span><span class="hud-val green">OPERATIONAL</span></div>
-      <div class="hud-item"><span class="hud-label">READINESS</span><span class="hud-val">100%</span></div>
-      <div class="hud-item"><span class="hud-label">UPTIME</span><span class="hud-val">24 / 7 / 365</span></div>
+    <div class="hero-hud right">
+      <div class="hud-row"><span class="hud-k">SPEED</span><span class="hud-v" id="speed">72 MPH</span></div>
+      <div class="hud-row"><span class="hud-k">LOAD</span><span class="hud-v">48,000 LB</span></div>
+      <div class="hud-row"><span class="hud-k">TERRAIN</span><span class="hud-v amber">ROUGH</span></div>
     </div>
 
-    <div class="scroll-hint">
-      <div class="scroll-line"></div>
-      <span>SCROLL</span>
+    <div class="scroll-cue">
+      <div class="scroll-bar"></div>
+      <span>SCROLL TO ENGAGE</span>
     </div>
   </section>
 
-  <!-- MISSION STATEMENT -->
-  <section id="mission" class="section-mission">
-    <div class="mission-inner">
-      <div class="section-tag">// MISSION BRIEF</div>
-      <blockquote class="mission-quote">
-        "When the operation depends on what arrives next — <em>that's where we come in.</em>"
-      </blockquote>
-      <p class="mission-body">Keystone Operations Group is a full-spectrum logistical support force. We plan, coordinate, and execute supply chain operations in the most demanding environments on earth. No terrain is too remote. No timeline too tight. No mission too critical.</p>
+  <!-- SCENE 02 — FLATBED / TERRAIN POV -->
+  <section id="scene-02" class="scene scene-terrain">
+    <div class="scene-bg parallax" data-speed="0.4" style="background-image:url('https://source.unsplash.com/1920x1080/?offroad+truck+mud+terrain+dust')"></div>
+    <div class="grade-overlay teal"></div>
+
+    <div class="scene-num">02 / 05</div>
+
+    <div class="terrain-content container">
+      <div class="terrain-left">
+        <div class="section-label">// IN THE FIELD</div>
+        <h2 class="section-h2">ANY TERRAIN.<br /><em>ANY CONDITION.</em></h2>
+        <p>From cracked asphalt to open mud flats — our operators push iron through environments that would stop anyone else cold. When the road ends, the mission doesn't.</p>
+        <ul class="terrain-list">
+          <li><span class="li-mark">—</span> Remote & off-grid delivery</li>
+          <li><span class="li-mark">—</span> Adverse weather operations</li>
+          <li><span class="li-mark">—</span> High-security transport corridors</li>
+          <li><span class="li-mark">—</span> Time-critical last-mile execution</li>
+        </ul>
+      </div>
     </div>
-    <div class="mission-visual">
-      <div class="grid-overlay"></div>
-    </div>
+
+    <!-- Exhaust steam effect -->
+    <canvas id="steam-canvas"></canvas>
   </section>
 
-  <!-- CAPABILITIES -->
-  <section id="capabilities" class="section-capabilities">
+  <!-- SCENE 03 — CAPABILITIES -->
+  <section id="scene-03" class="scene scene-caps">
+    <div class="scene-num light">03 / 05</div>
     <div class="container">
-      <div class="section-tag">// CAPABILITIES</div>
-      <h2 class="section-title">WHAT WE BRING<br /><em>TO THE FIELD</em></h2>
-
-      <div class="cap-grid">
-        <div class="cap-card" data-num="01">
-          <div class="cap-icon">&#9650;</div>
-          <h3>SUPPLY CHAIN<br />OPERATIONS</h3>
-          <p>Procurement to last-mile delivery. We build resilient chains that hold under pressure and scale on demand.</p>
-          <div class="cap-line"></div>
-        </div>
-        <div class="cap-card" data-num="02">
-          <div class="cap-icon">&#9632;</div>
-          <h3>MISSION<br />PLANNING</h3>
-          <p>Logistical integration from day one. Our planners embed with your team to synchronize assets with operational tempo.</p>
-          <div class="cap-line"></div>
-        </div>
-        <div class="cap-card" data-num="03">
-          <div class="cap-icon">&#9679;</div>
-          <h3>REAL-TIME<br />TRACKING</h3>
-          <p>Full situational awareness across all shipments, personnel, and resources. Live data. Zero blind spots.</p>
-          <div class="cap-line"></div>
-        </div>
-        <div class="cap-card" data-num="04">
-          <div class="cap-icon">&#9670;</div>
-          <h3>EQUIPMENT<br />READINESS</h3>
-          <p>Proactive and reactive maintenance coordination that keeps your assets mission-ready when it counts most.</p>
-          <div class="cap-line"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OPERATIONS STRIP -->
-  <section id="operations" class="section-ops">
-    <div class="ops-tape">
-      <span>SUPPLY CHAIN &nbsp;·&nbsp; LAST-MILE DELIVERY &nbsp;·&nbsp; FORWARD STAGING &nbsp;·&nbsp; ASSET TRACKING &nbsp;·&nbsp; MISSION SUPPORT &nbsp;·&nbsp; 24/7 COORDINATION &nbsp;·&nbsp; GLOBAL REACH &nbsp;·&nbsp;</span>
-      <span aria-hidden="true">SUPPLY CHAIN &nbsp;·&nbsp; LAST-MILE DELIVERY &nbsp;·&nbsp; FORWARD STAGING &nbsp;·&nbsp; ASSET TRACKING &nbsp;·&nbsp; MISSION SUPPORT &nbsp;·&nbsp; 24/7 COORDINATION &nbsp;·&nbsp; GLOBAL REACH &nbsp;·&nbsp;</span>
-    </div>
-
-    <div class="ops-content container">
-      <div class="ops-left">
-        <div class="section-tag">// BY THE NUMBERS</div>
-        <div class="stats">
-          <div class="stat-block">
-            <div class="stat-num">15<span>+</span></div>
-            <div class="stat-label">YEARS IN OPERATION</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num">100<span>%</span></div>
-            <div class="stat-label">MISSION COMPLETION RATE</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num">6</div>
-            <div class="stat-label">CONTINENTS COVERED</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num">24<span>/7</span></div>
-            <div class="stat-label">OPERATIONAL SUPPORT</div>
+      <div class="section-label">// CAPABILITIES</div>
+      <h2 class="section-h2">WHAT WE<br /><em>BRING TO<br />THE FIGHT</em></h2>
+      <div class="caps-grid">
+        <div class="cap">
+          <div class="cap-bg" style="background-image:url('https://source.unsplash.com/800x600/?truck+logistics+supply')"></div>
+          <div class="cap-overlay"></div>
+          <div class="cap-body">
+            <span class="cap-num">01</span>
+            <h3>SUPPLY CHAIN<br />OPERATIONS</h3>
+            <p>Procurement to last-mile. Built for scale. Hardened for failure.</p>
           </div>
         </div>
-      </div>
-      <div class="ops-right">
-        <div class="ops-diagram">
-          <div class="node node-top">COMMAND</div>
-          <div class="node-line v"></div>
-          <div class="node node-mid">KOG HUB</div>
-          <div class="node-branches">
-            <div class="branch">
-              <div class="node-line h"></div>
-              <div class="node node-sm">SUPPLY</div>
-            </div>
-            <div class="branch">
-              <div class="node-line h"></div>
-              <div class="node node-sm">DEPLOY</div>
-            </div>
-            <div class="branch">
-              <div class="node-line h"></div>
-              <div class="node node-sm">SUSTAIN</div>
-            </div>
+        <div class="cap">
+          <div class="cap-bg" style="background-image:url('https://source.unsplash.com/800x600/?military+planning+map+tactical')"></div>
+          <div class="cap-overlay"></div>
+          <div class="cap-body">
+            <span class="cap-num">02</span>
+            <h3>MISSION<br />PLANNING</h3>
+            <p>Embedded logistics planners. Synced to your operational tempo from day one.</p>
+          </div>
+        </div>
+        <div class="cap">
+          <div class="cap-bg" style="background-image:url('https://source.unsplash.com/800x600/?dashboard+tracking+screen+night')"></div>
+          <div class="cap-overlay"></div>
+          <div class="cap-body">
+            <span class="cap-num">03</span>
+            <h3>REAL-TIME<br />TRACKING</h3>
+            <p>Full asset visibility. Live data across every shipment. Zero blind spots.</p>
+          </div>
+        </div>
+        <div class="cap">
+          <div class="cap-bg" style="background-image:url('https://source.unsplash.com/800x600/?mechanic+truck+maintenance+workshop')"></div>
+          <div class="cap-overlay"></div>
+          <div class="cap-body">
+            <span class="cap-num">04</span>
+            <h3>EQUIPMENT<br />READINESS</h3>
+            <p>Proactive maintenance. Maximum uptime. Your iron stays in the fight.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section-contact">
+  <!-- SCENE 04 — STATS / FILM STRIP -->
+  <section id="scene-04" class="scene scene-stats">
+    <div class="scene-bg parallax" data-speed="0.3" style="background-image:url('https://source.unsplash.com/1920x1080/?semi+truck+highway+night+lights+motion')"></div>
+    <div class="grade-overlay dark"></div>
+    <div class="scene-num">04 / 05</div>
+
+    <div class="stats-inner container">
+      <div class="section-label">// BY THE NUMBERS</div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-figure" data-target="15" data-suffix="+">15+</div>
+          <div class="stat-desc">Years Running Iron</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-figure" data-target="100" data-suffix="%">100%</div>
+          <div class="stat-desc">Mission Completion</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-figure" data-target="6" data-suffix="">6</div>
+          <div class="stat-desc">Continents Covered</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-figure" data-target="24" data-suffix="/7">24/7</div>
+          <div class="stat-desc">Always Operational</div>
+        </div>
+      </div>
+      <blockquote class="pull-quote">"When it has to get there — <em>we get it there.</em>"</blockquote>
+    </div>
+  </section>
+
+  <!-- SCENE 05 — CONTACT -->
+  <section id="scene-05" class="scene scene-contact">
+    <div class="scene-num light">05 / 05</div>
     <div class="container">
-      <div class="contact-grid">
+      <div class="contact-wrap">
         <div class="contact-left">
-          <div class="section-tag">// DEPLOY US</div>
-          <h2 class="section-title">READY TO<br /><em>SUPPORT YOUR<br />NEXT OPERATION?</em></h2>
-          <p>Tell us what you need. We'll build the logistical backbone to make it happen.</p>
-          <div class="contact-info">
-            <div class="info-row"><span class="info-label">AVAILABILITY</span><span class="info-val green">IMMEDIATE</span></div>
-            <div class="info-row"><span class="info-label">RESPONSE TIME</span><span class="info-val">&lt; 2 HOURS</span></div>
-            <div class="info-row"><span class="info-label">CLEARANCE</span><span class="info-val">UPON REQUEST</span></div>
+          <div class="section-label">// DEPLOY US</div>
+          <h2 class="section-h2">READY TO<br /><em>MOVE?</em></h2>
+          <p>Tell us what you need. We'll have boots on the ground and iron rolling inside 24 hours.</p>
+          <div class="readiness-grid">
+            <div class="ready-item">
+              <span class="ready-label">AVAILABILITY</span>
+              <span class="ready-val green">IMMEDIATE</span>
+            </div>
+            <div class="ready-item">
+              <span class="ready-label">RESPONSE</span>
+              <span class="ready-val">&lt; 2 HRS</span>
+            </div>
+            <div class="ready-item">
+              <span class="ready-label">COVERAGE</span>
+              <span class="ready-val">GLOBAL</span>
+            </div>
+            <div class="ready-item">
+              <span class="ready-label">CLEARANCE</span>
+              <span class="ready-val">ON REQUEST</span>
+            </div>
           </div>
         </div>
         <div class="contact-right">
           <form id="contact-form">
-            <div class="field-group">
+            <div class="field">
               <label>NAME</label>
               <input type="text" placeholder="Full name" required />
             </div>
-            <div class="field-group">
+            <div class="field">
               <label>EMAIL</label>
-              <input type="email" placeholder="Secure email" required />
+              <input type="email" placeholder="Email address" required />
             </div>
-            <div class="field-group">
-              <label>ORGANIZATION</label>
-              <input type="text" placeholder="Unit / Agency / Company" />
+            <div class="field-row">
+              <div class="field">
+                <label>ORGANIZATION</label>
+                <input type="text" placeholder="Unit / Agency / Company" />
+              </div>
+              <div class="field">
+                <label>URGENCY</label>
+                <select>
+                  <option value="">Select</option>
+                  <option>Immediate — &lt; 24 hrs</option>
+                  <option>Urgent — &lt; 72 hrs</option>
+                  <option>Standard — 1 week</option>
+                  <option>Planning phase</option>
+                </select>
+              </div>
             </div>
-            <div class="field-group">
+            <div class="field">
               <label>OPERATIONAL BRIEF</label>
-              <textarea rows="5" placeholder="Describe your logistical support requirements..." required></textarea>
+              <textarea rows="4" placeholder="Describe the operation and logistical support required..." required></textarea>
             </div>
-            <button type="submit" class="btn-primary full">TRANSMIT REQUEST</button>
+            <button type="submit" class="cta-main submit-btn">TRANSMIT REQUEST &#8594;</button>
             <p id="form-status"></p>
           </form>
         </div>
@@ -207,11 +253,11 @@
   </section>
 
   <!-- FOOTER -->
-  <footer>
+  <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-logo">KOG</div>
-      <p class="footer-text">KEYSTONE OPERATIONS GROUP &nbsp;·&nbsp; ALL OPERATIONS CONFIDENTIAL &nbsp;·&nbsp; &copy; 2026</p>
-      <div class="footer-status"><span class="dot green"></span> SYSTEMS ONLINE</div>
+      <p>KEYSTONE OPERATIONS GROUP &nbsp;&middot;&nbsp; ALL OPERATIONS CONFIDENTIAL &nbsp;&middot;&nbsp; &copy; 2026</p>
+      <div class="footer-live"><span class="pulse-dot"></span>SYSTEMS LIVE</div>
     </div>
   </footer>
 
