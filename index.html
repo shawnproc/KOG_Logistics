@@ -3,100 +3,216 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOG Logistical Support</title>
+  <title>KOG — Keystone Operations Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&family=Oswald:wght@200;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="logo">KOG</div>
-      <nav>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
 
-  <section class="hero">
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-kog">KOG</span>
+        <span class="logo-rule"></span>
+        <span class="logo-sub">KEYSTONE OPERATIONS GROUP</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#operations">Operations</a></li>
+        <li><a href="#contact" class="nav-cta">Deploy Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="particles"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-scanlines"></div>
+
     <div class="hero-content">
-      <h1>Keystone Operations Group</h1>
-      <p class="subtitle">Logistical Support &amp; Mission-Ready Solutions</p>
-      <a href="#contact" class="btn">Get In Touch</a>
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        <span>CLASSIFIED — LOGISTICS DIVISION</span>
+        <span class="dot"></span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line-1">MOVE.</span>
+        <span class="line-2">SUPPLY.</span>
+        <span class="line-3">DOMINATE.</span>
+      </h1>
+      <p class="hero-sub">We deliver where others can't. On time. Every time. No excuses.</p>
+      <div class="hero-actions">
+        <a href="#capabilities" class="btn-primary">VIEW CAPABILITIES</a>
+        <a href="#contact" class="btn-ghost">REQUEST SUPPORT</a>
+      </div>
+    </div>
+
+    <div class="hero-hud">
+      <div class="hud-item"><span class="hud-label">STATUS</span><span class="hud-val green">OPERATIONAL</span></div>
+      <div class="hud-item"><span class="hud-label">READINESS</span><span class="hud-val">100%</span></div>
+      <div class="hud-item"><span class="hud-label">UPTIME</span><span class="hud-val">24 / 7 / 365</span></div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
     </div>
   </section>
 
-  <section id="services" class="section">
+  <!-- MISSION STATEMENT -->
+  <section id="mission" class="section-mission">
+    <div class="mission-inner">
+      <div class="section-tag">// MISSION BRIEF</div>
+      <blockquote class="mission-quote">
+        "When the operation depends on what arrives next — <em>that's where we come in.</em>"
+      </blockquote>
+      <p class="mission-body">Keystone Operations Group is a full-spectrum logistical support force. We plan, coordinate, and execute supply chain operations in the most demanding environments on earth. No terrain is too remote. No timeline too tight. No mission too critical.</p>
+    </div>
+    <div class="mission-visual">
+      <div class="grid-overlay"></div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section id="capabilities" class="section-capabilities">
     <div class="container">
-      <h2>Services</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon">&#128666;</div>
-          <h3>Supply Chain Management</h3>
-          <p>End-to-end coordination of procurement, transport, and delivery to keep operations running without disruption.</p>
+      <div class="section-tag">// CAPABILITIES</div>
+      <h2 class="section-title">WHAT WE BRING<br /><em>TO THE FIELD</em></h2>
+
+      <div class="cap-grid">
+        <div class="cap-card" data-num="01">
+          <div class="cap-icon">&#9650;</div>
+          <h3>SUPPLY CHAIN<br />OPERATIONS</h3>
+          <p>Procurement to last-mile delivery. We build resilient chains that hold under pressure and scale on demand.</p>
+          <div class="cap-line"></div>
         </div>
-        <div class="card">
-          <div class="card-icon">&#128203;</div>
-          <h3>Mission Planning Support</h3>
-          <p>Detailed logistical planning integrated with operational timelines to ensure assets are where they need to be.</p>
+        <div class="cap-card" data-num="02">
+          <div class="cap-icon">&#9632;</div>
+          <h3>MISSION<br />PLANNING</h3>
+          <p>Logistical integration from day one. Our planners embed with your team to synchronize assets with operational tempo.</p>
+          <div class="cap-line"></div>
         </div>
-        <div class="card">
-          <div class="card-icon">&#128339;</div>
-          <h3>Real-Time Tracking</h3>
-          <p>Live visibility into shipments, personnel movements, and resource allocation across all active operations.</p>
+        <div class="cap-card" data-num="03">
+          <div class="cap-icon">&#9679;</div>
+          <h3>REAL-TIME<br />TRACKING</h3>
+          <p>Full situational awareness across all shipments, personnel, and resources. Live data. Zero blind spots.</p>
+          <div class="cap-line"></div>
         </div>
-        <div class="card">
-          <div class="card-icon">&#9881;</div>
-          <h3>Equipment Maintenance Coordination</h3>
-          <p>Scheduled and reactive maintenance management to maximize readiness and minimize downtime.</p>
+        <div class="cap-card" data-num="04">
+          <div class="cap-icon">&#9670;</div>
+          <h3>EQUIPMENT<br />READINESS</h3>
+          <p>Proactive and reactive maintenance coordination that keeps your assets mission-ready when it counts most.</p>
+          <div class="cap-line"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="about" class="section alt">
-    <div class="container two-col">
-      <div>
-        <h2>About KOG</h2>
-        <p>Keystone Operations Group provides professional logistical support to organizations that demand precision, reliability, and discretion. With deep experience across complex operational environments, our team builds the supply backbone that keeps missions moving forward.</p>
-        <p>We operate with a mission-first mindset — anticipating needs, eliminating bottlenecks, and delivering results under pressure.</p>
+  <!-- OPERATIONS STRIP -->
+  <section id="operations" class="section-ops">
+    <div class="ops-tape">
+      <span>SUPPLY CHAIN &nbsp;·&nbsp; LAST-MILE DELIVERY &nbsp;·&nbsp; FORWARD STAGING &nbsp;·&nbsp; ASSET TRACKING &nbsp;·&nbsp; MISSION SUPPORT &nbsp;·&nbsp; 24/7 COORDINATION &nbsp;·&nbsp; GLOBAL REACH &nbsp;·&nbsp;</span>
+      <span aria-hidden="true">SUPPLY CHAIN &nbsp;·&nbsp; LAST-MILE DELIVERY &nbsp;·&nbsp; FORWARD STAGING &nbsp;·&nbsp; ASSET TRACKING &nbsp;·&nbsp; MISSION SUPPORT &nbsp;·&nbsp; 24/7 COORDINATION &nbsp;·&nbsp; GLOBAL REACH &nbsp;·&nbsp;</span>
+    </div>
+
+    <div class="ops-content container">
+      <div class="ops-left">
+        <div class="section-tag">// BY THE NUMBERS</div>
+        <div class="stats">
+          <div class="stat-block">
+            <div class="stat-num">15<span>+</span></div>
+            <div class="stat-label">YEARS IN OPERATION</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">100<span>%</span></div>
+            <div class="stat-label">MISSION COMPLETION RATE</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">6</div>
+            <div class="stat-label">CONTINENTS COVERED</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">24<span>/7</span></div>
+            <div class="stat-label">OPERATIONAL SUPPORT</div>
+          </div>
+        </div>
       </div>
-      <div class="about-stats">
-        <div class="stat">
-          <span class="stat-num">100%</span>
-          <span class="stat-label">Mission Completion Rate</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">24/7</span>
-          <span class="stat-label">Operational Support</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">15+</span>
-          <span class="stat-label">Years of Experience</span>
+      <div class="ops-right">
+        <div class="ops-diagram">
+          <div class="node node-top">COMMAND</div>
+          <div class="node-line v"></div>
+          <div class="node node-mid">KOG HUB</div>
+          <div class="node-branches">
+            <div class="branch">
+              <div class="node-line h"></div>
+              <div class="node node-sm">SUPPLY</div>
+            </div>
+            <div class="branch">
+              <div class="node-line h"></div>
+              <div class="node node-sm">DEPLOY</div>
+            </div>
+            <div class="branch">
+              <div class="node-line h"></div>
+              <div class="node node-sm">SUSTAIN</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="section">
+  <!-- CONTACT -->
+  <section id="contact" class="section-contact">
     <div class="container">
-      <h2>Contact</h2>
-      <p class="contact-intro">Ready to support your next operation. Reach out to discuss your logistical needs.</p>
-      <form id="contact-form">
-        <div class="form-row">
-          <input type="text" id="name" placeholder="Name" required />
-          <input type="email" id="email" placeholder="Email" required />
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="section-tag">// DEPLOY US</div>
+          <h2 class="section-title">READY TO<br /><em>SUPPORT YOUR<br />NEXT OPERATION?</em></h2>
+          <p>Tell us what you need. We'll build the logistical backbone to make it happen.</p>
+          <div class="contact-info">
+            <div class="info-row"><span class="info-label">AVAILABILITY</span><span class="info-val green">IMMEDIATE</span></div>
+            <div class="info-row"><span class="info-label">RESPONSE TIME</span><span class="info-val">&lt; 2 HOURS</span></div>
+            <div class="info-row"><span class="info-label">CLEARANCE</span><span class="info-val">UPON REQUEST</span></div>
+          </div>
         </div>
-        <input type="text" id="org" placeholder="Organization" />
-        <textarea id="message" rows="5" placeholder="Describe your logistical support needs..." required></textarea>
-        <button type="submit" class="btn">Send Message</button>
-        <p id="form-status" class="form-status"></p>
-      </form>
+        <div class="contact-right">
+          <form id="contact-form">
+            <div class="field-group">
+              <label>NAME</label>
+              <input type="text" placeholder="Full name" required />
+            </div>
+            <div class="field-group">
+              <label>EMAIL</label>
+              <input type="email" placeholder="Secure email" required />
+            </div>
+            <div class="field-group">
+              <label>ORGANIZATION</label>
+              <input type="text" placeholder="Unit / Agency / Company" />
+            </div>
+            <div class="field-group">
+              <label>OPERATIONAL BRIEF</label>
+              <textarea rows="5" placeholder="Describe your logistical support requirements..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary full">TRANSMIT REQUEST</button>
+            <p id="form-status"></p>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 Keystone Operations Group. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-logo">KOG</div>
+      <p class="footer-text">KEYSTONE OPERATIONS GROUP &nbsp;·&nbsp; ALL OPERATIONS CONFIDENTIAL &nbsp;·&nbsp; &copy; 2026</p>
+      <div class="footer-status"><span class="dot green"></span> SYSTEMS ONLINE</div>
+    </div>
   </footer>
 
   <script src="main.js"></script>
