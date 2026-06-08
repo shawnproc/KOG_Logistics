@@ -76,15 +76,39 @@
   </section>
 
   <!-- ═══════════════════════════
-       DRIVE — scroll-driven terrain
+       DRIVE — real photo scroll sequence
   ════════════════════════════ -->
   <section id="drive">
     <div class="drive-sticky">
-      <canvas id="drive-canvas"></canvas>
-      <div class="drive-label">
-        <span class="section-tag">FIELD OPERATIONS</span>
-        <p>Scroll to run the iron.</p>
+
+      <!-- Three real photo scenes that crossfade on scroll -->
+      <div class="drive-scene" id="ds-0"
+           style="background-image:url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=90')"></div>
+      <div class="drive-scene" id="ds-1"
+           style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=90')"></div>
+      <div class="drive-scene" id="ds-2"
+           style="background-image:url('https://images.unsplash.com/photo-1520116468816-95b69f847357?auto=format&fit=crop&w=1920&q=90')"></div>
+
+      <!-- Cinematic grade — lighter than before -->
+      <div class="drive-grade"></div>
+
+      <!-- Copy overlays per scene -->
+      <div class="drive-copy-wrap">
+        <div class="drive-copy" id="dc-0">
+          <span class="section-tag">FIELD OPERATIONS</span>
+          <h2 class="drive-h2">Iron on the<br /><em>open road.</em></h2>
+        </div>
+        <div class="drive-copy" id="dc-1">
+          <span class="section-tag">ANY TERRAIN</span>
+          <h2 class="drive-h2">Rough ground<br /><em>is our ground.</em></h2>
+        </div>
+        <div class="drive-copy" id="dc-2">
+          <span class="section-tag">ALWAYS MOVING</span>
+          <h2 class="drive-h2">The mission<br /><em>doesn't wait.</em></h2>
+        </div>
       </div>
+
+      <!-- Progress bar -->
       <div class="drive-progress-wrap">
         <div class="drive-progress-bar" id="drive-bar"></div>
       </div>

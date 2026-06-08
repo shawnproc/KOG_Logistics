@@ -193,248 +193,65 @@ window.addEventListener('scroll', () => {
   numsBg.style.transform = `translateY(${p * 18}%)`;
 }, { passive: true });
 
-/* ─── SCROLL-DRIVEN TRUCK TERRAIN ────────────────── */
+/* ─── REAL PHOTO SCROLL SEQUENCE ────────────────── */
+// Three real truck photos crossfade as you scroll.
+// Each scene also gets a subtle parallax zoom via transform.
 function initDrive() {
   const section = $('#drive');
-  const canvas  = $('#drive-canvas');
-  if (!section || !canvas) return;
+  if (!section) return;
 
-  const ctx = canvas.getContext('2d');
-  let W, H;
+  const scenes = [
+    { el: $('#ds-0'), copy: $('#dc-0') },
+    { el: $('#ds-1'), copy: $('#dc-1') },
+    { el: $('#ds-2'), copy: $('#dc-2') },
+  ].filter(s => s.el);
 
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
+  const bar = $('#drive-bar');
+  const SCENE_COUNT = scenes.length;
 
-  // ── Load truck SVG as image ───────────────────────
-  // SVG viewBox: 0 0 520 192
-  // Rotation pivot = midpoint of wheelbase at ground:
-  //   front wheel x=464, drive wheel x=233 → pivot SVG x≈348
-  //   ground line y=185 in SVG
-  // Exhaust stack tips (SVG coords): stack1=(271,4)  stack2=(287,6)
-  const SVG_W = 520, SVG_H = 192;
-  const PIVOT_X = 348, PIVOT_Y = 185;   // in SVG space
-  const STACK1 = { x: 271, y: 4  };
-  const STACK2 = { x: 287, y: 6  };
-  const DUST_WHEELS = [
-    { x: 233, y: 185 },   // drive axle
-    { x: 63,  y: 185 },   // trailer rear
-  ];
-
-  const truckImg = new Image();
-  truckImg.src = 'truck.svg';
-
-  // ── Terrain ──────────────────────────────────────
-  function tY(worldX, layer) {
-    const configs = [
-      { base: 0.58, freqs: [0.00042, 0.00088, 0.0028 ], amps: [55, 28, 9 ] },
-      { base: 0.70, freqs: [0.00065, 0.0016,  0.0055 ], amps: [62, 32, 11] },
-      { base: 0.81, freqs: [0.0011,  0.0028,  0.011  ], amps: [44, 20, 7 ] },
-    ];
-    const c = configs[layer];
-    return H * c.base + c.freqs.reduce((s, f, i) =>
-      s + Math.sin(worldX * f * Math.PI * 2) * c.amps[i], 0);
-  }
-
-  function drawTerrain(worldOffset, layer) {
-    const pal = [
-      ['#0e1018','#0a0c14'],
-      ['#131510','#0f110d'],
-      ['#1c1810','#141008'],
-    ];
-    ctx.beginPath();
-    ctx.moveTo(0, H);
-    for (let x = 0; x <= W; x += 3) ctx.lineTo(x, tY(x + worldOffset, layer));
-    ctx.lineTo(W, H); ctx.closePath();
-    const g = ctx.createLinearGradient(0, H * 0.52, 0, H);
-    g.addColorStop(0, pal[layer][0]);
-    g.addColorStop(1, pal[layer][1]);
-    ctx.fillStyle = g; ctx.fill();
-  }
-
-  function drawRocks(worldOffset, layer) {
-    for (let i = 0; i < 20; i++) {
-      const wx = (i * 1847 + layer * 431) % (W * 3);
-      const rx = ((wx - worldOffset * (layer === 2 ? 1 : 0.4)) % (W + 240) + W + 240) % (W + 240) - 120;
-      const ry = tY(wx + worldOffset * (layer === 2 ? 1 : 0.4), layer);
-      const rs = (3 + (i % 5) * 2.8) * (layer * 0.5 + 0.6);
-      ctx.beginPath();
-      ctx.ellipse(rx, ry - rs * 0.35, rs * 1.4, rs * 0.75, (i % 4) * 0.45, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${18+(i%4)*4},${16+(i%3)*3},12,0.88)`;
-      ctx.fill();
-    }
-  }
-
-  // ── Scroll progress ───────────────────────────────
   function getProgress() {
     const rect  = section.getBoundingClientRect();
-    return clamp(-rect.top / (section.offsetHeight - H), 0, 1);
+    const total = section.offsetHeight - window.innerHeight;
+    return clamp(-rect.top / total, 0, 1);
   }
 
-  // ── Particles ─────────────────────────────────────
-  const exhaust = [], dust = [];
-
-  function spawnExhaust(x, y) {
-    exhaust.push({ x, y,
-      vx: -0.35 - Math.random() * 0.55,
-      vy: -(1.2 + Math.random() * 1.5),
-      r: 6 + Math.random() * 8, grow: 0.5 + Math.random() * 0.7,
-      a: 0.25 + Math.random() * 0.13, life: 1,
-      decay: 0.007 + Math.random() * 0.005 });
-  }
-
-  function spawnDust(x, y) {
-    dust.push({ x, y,
-      vx: -1.6 - Math.random() * 2.2,
-      vy: -0.4 - Math.random() * 0.7,
-      r: 3 + Math.random() * 5, grow: 0.45 + Math.random() * 0.55,
-      a: 0.3 + Math.random() * 0.2, life: 1,
-      decay: 0.02 + Math.random() * 0.012 });
-  }
-
-  function tickParticles(pool, rgb1, rgb2) {
-    for (let i = pool.length - 1; i >= 0; i--) {
-      const p = pool[i];
-      p.x += p.vx; p.y += p.vy; p.r += p.grow; p.life -= p.decay;
-      if (p.life <= 0) { pool.splice(i, 1); continue; }
-      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-      g.addColorStop(0,   `rgba(${rgb1},${p.life * p.a})`);
-      g.addColorStop(0.5, `rgba(${rgb2},${p.life * p.a * 0.5})`);
-      g.addColorStop(1,   `rgba(${rgb2},0)`);
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fillStyle = g; ctx.fill();
-    }
-  }
-
-  // ── Draw truck SVG via drawImage ──────────────────
-  // Rotation is around the pivot point (wheelbase midpoint at ground).
-  // All particle spawn positions are derived from SVG coords after rotation.
-  let stack1 = {x:0,y:0}, stack2 = {x:0,y:0};
-  const dustSpawns = DUST_WHEELS.map(() => ({x:0,y:0}));
-
-  function drawTruck(cx, cy, angle, s) {
-    if (!truckImg.complete) return;
-
-    const dW = SVG_W * s, dH = SVG_H * s;
-    // Offset from pivot to top-left of image (in local/unrotated space)
-    const offX = -PIVOT_X * s;
-    const offY = -PIVOT_Y * s;
-
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(angle);
-    ctx.drawImage(truckImg, offX, offY, dW, dH);
-    ctx.restore();
-
-    // Compute world-space positions of stack tips and dust wheels
-    // after applying the same translate+rotate
-    const cosA = Math.cos(angle), sinA = Math.sin(angle);
-    function toWorld(svgX, svgY) {
-      const lx = (svgX - PIVOT_X) * s;
-      const ly = (svgY - PIVOT_Y) * s;
-      return { x: cx + lx*cosA - ly*sinA,
-               y: cy + lx*sinA + ly*cosA };
-    }
-    stack1 = toWorld(STACK1.x, STACK1.y);
-    stack2 = toWorld(STACK2.x, STACK2.y);
-    DUST_WHEELS.forEach((w, i) => { dustSpawns[i] = toWorld(w.x, w.y); });
-  }
-
-  // ── Physics state ─────────────────────────────────
-  let truckY = 0, truckVY = 0, truckAngle = 0;
-  let prevProgress = 0;
   let active = false;
-
   const io = new IntersectionObserver(e => { active = e[0].isIntersecting; }, { threshold: 0 });
   io.observe(section);
 
-  function draw() {
-    requestAnimationFrame(draw);
+  function update() {
+    requestAnimationFrame(update);
     if (!active) return;
 
-    const progress = getProgress();
-    const worldOff = progress * W * 2.6;
-    const truckX   = W * 0.40;
+    const p      = getProgress();
+    const scene  = Math.min(Math.floor(p * SCENE_COUNT), SCENE_COUNT - 1);
+    // Progress within the current scene (0→1)
+    const sceneP = (p * SCENE_COUNT) - scene;
 
-    // Terrain-following spring
-    const groundY = tY(truckX + worldOff, 2);
-    truckVY += (groundY - truckY) * 0.28;
-    truckVY *= 0.72;
-    truckY  += truckVY;
+    // Crossfade scenes
+    scenes.forEach((s, i) => {
+      const isActive = i === scene;
+      const opacity  = isActive ? 1 : 0;
+      if (s.el) s.el.style.opacity = opacity;
 
-    // Slope angle
-    const dSlope = tY(truckX + worldOff + 24, 2) - tY(truckX + worldOff - 24, 2);
-    truckAngle  += (Math.atan2(dSlope, 48) * 0.52 - truckAngle) * 0.16;
+      // Parallax zoom: active scene zooms from 1.0 → 1.06 as it progresses
+      if (s.el) {
+        const zoom = isActive ? 1 + sceneP * 0.06 : 1;
+        s.el.style.transform = `scale(${zoom})`;
+      }
 
-    // Clear
-    ctx.clearRect(0, 0, W, H);
-
-    // Sky
-    const sky = ctx.createLinearGradient(0, 0, 0, H * 0.60);
-    sky.addColorStop(0,   '#060810');
-    sky.addColorStop(0.5, '#0c1220');
-    sky.addColorStop(1,   '#131812');
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, W, H * 0.60);
-
-    // Stars (shift slightly with world for parallax feel)
-    ctx.fillStyle = 'rgba(210,215,235,0.55)';
-    for (let i = 0; i < 80; i++) {
-      const sx = ((i * 173.3 + worldOff * 0.015) % (W + 20) + W + 20) % (W + 20);
-      const sy = (i * 91.7) % (H * 0.46);
-      ctx.beginPath();
-      ctx.arc(sx, sy, i % 5 === 0 ? 1.1 : 0.5, 0, Math.PI*2);
-      ctx.fill();
-    }
-
-    // Terrain layers
-    drawTerrain(worldOff * 0.16, 0);
-    drawTerrain(worldOff * 0.42, 1);
-    drawRocks(worldOff * 0.42, 1);
-
-    // Dust (behind truck — draw before truck)
-    tickParticles(dust, '148,118,74', '118,90,52');
-
-    // Near ground
-    drawTerrain(worldOff, 2);
-    drawRocks(worldOff, 2);
-
-    // Scale truck to viewport
-    const s = clamp(W / 1100, 0.52, 1.05);
-    drawTruck(truckX, truckY, truckAngle, s);
-
-    // Exhaust (on top of truck)
-    tickParticles(exhaust, '215,207,194', '188,180,166');
-
-    // Vignette
-    const vig = ctx.createRadialGradient(W/2, H/2, H*0.12, W/2, H/2, H*0.86);
-    vig.addColorStop(0.5, 'rgba(8,8,8,0)');
-    vig.addColorStop(1,   'rgba(8,8,8,0.65)');
-    ctx.fillStyle = vig; ctx.fillRect(0, 0, W, H);
-
-    // Emit particles (only while scrolling)
-    const speed = Math.abs(progress - prevProgress);
-    if (speed > 0.0006) {
-      if (Math.random() < 0.6) spawnExhaust(stack1.x, stack1.y);
-      if (Math.random() < 0.5) spawnExhaust(stack2.x, stack2.y);
-      dustSpawns.forEach(sp => { if (Math.random() < 0.65) spawnDust(sp.x, sp.y); });
-    }
-    prevProgress = progress;
+      // Copy text: fade in when scene activates, fade out at transition edge
+      if (s.copy) {
+        const vis = isActive && sceneP < 0.82;
+        s.copy.style.opacity  = vis ? 1 : 0;
+        s.copy.style.transform = vis ? 'translateY(0)' : 'translateY(16px)';
+      }
+    });
 
     // Progress bar
-    const bar = $('#drive-bar');
-    if (bar) bar.style.width = (progress * 100) + '%';
+    if (bar) bar.style.width = (p * 100) + '%';
   }
-
-  truckImg.onload = () => {
-    truckY = tY(W * 0.4, 2);
-    draw();
-  };
-  // Fallback if already cached
-  if (truckImg.complete) { truckY = tY(W * 0.4, 2); draw(); }
+  update();
 }
 initDrive();
 
