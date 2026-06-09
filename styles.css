@@ -2,13 +2,13 @@
    TOKENS
 ════════════════════════════════════════════════════ */
 :root {
-  --ink:     #080808;
-  --surface: #111111;
-  --lift:    #1C1C1C;
+  --ink:     #0C1820;
+  --surface: #111E28;
+  --lift:    #1A2A36;
   --bone:    #E9E6E0;
   --off:     #A8A49E;
-  --rust:    #C04A1C;
-  --rust-d:  #7A2E0E;
+  --rust:    #0D7A8A;
+  --rust-d:  #085466;
   --green:   #3DBA6E;
   --border:  rgba(255,255,255,0.07);
   --ease:    cubic-bezier(0.16, 1, 0.3, 1);
@@ -55,7 +55,7 @@ body {
 body.hovering #cur-ring {
   width: 64px; height: 64px;
   border-color: var(--rust);
-  background: rgba(192,74,28,0.08);
+  background: rgba(13,122,138,0.08);
 }
 
 /* ════════════════════════════════════════════════════
@@ -103,7 +103,7 @@ body.hovering #cur-ring {
 }
 #nav.scrolled {
   padding: 1rem 3rem;
-  background: rgba(8,8,8,.97);
+  background: rgba(12,24,32,.97);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
@@ -194,8 +194,8 @@ body.hovering #cur-ring {
 .hero-grade {
   position: absolute; inset: 0;
   background:
-    linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,.3) 45%, rgba(8,8,8,.1) 100%),
-    linear-gradient(to right, rgba(192,74,28,.06), transparent 50%, rgba(0,30,50,.06));
+    linear-gradient(to top, rgba(12,24,32,1) 0%, rgba(12,24,32,.3) 45%, rgba(12,24,32,.1) 100%),
+    linear-gradient(to right, rgba(13,122,138,.06), transparent 50%, rgba(0,30,50,.06));
 }
 
 .hero-floor {
@@ -322,7 +322,7 @@ body.hovering #cur-ring {
 .drive-grade {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
-    linear-gradient(to right,  rgba(192,74,28,.08) 0%, transparent 50%, rgba(0,40,70,.08) 100%),
+    linear-gradient(to right,  rgba(13,122,138,.08) 0%, transparent 50%, rgba(0,40,70,.08) 100%),
     linear-gradient(to top,    rgba(0,0,0,.65) 0%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.35) 100%);
 }
 
@@ -584,7 +584,7 @@ body.hovering #cur-ring {
 }
 .numbers-grade {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,.95), rgba(8,8,8,.5) 50%, rgba(8,8,8,.85));
+  background: linear-gradient(to top, rgba(12,24,32,.95), rgba(12,24,32,.5) 50%, rgba(12,24,32,.85));
 }
 .numbers-inner {
   position: relative; z-index: 2;
