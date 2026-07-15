@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shawnproc.github.io/KOG_Logistics/sitemap.xml

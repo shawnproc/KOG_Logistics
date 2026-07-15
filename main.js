@@ -18,6 +18,25 @@ document.getElementById('contact-form').addEventListener('submit', e => {
   setTimeout(() => { status.textContent = ''; }, 5000);
 });
 
+// Divisions dropdown
+const dropdown = document.querySelector('.nav-dropdown');
+if (dropdown) {
+  const toggle = dropdown.querySelector('.nav-drop-toggle');
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = dropdown.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  // Close on outside click or when a menu item is chosen
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+  dropdown.querySelectorAll('.nav-menu a').forEach(a =>
+    a.addEventListener('click', () => dropdown.classList.remove('open'))
+  );
+}
+
 // Header shadow on scroll
 window.addEventListener('scroll', () => {
   document.querySelector('header').style.boxShadow =
