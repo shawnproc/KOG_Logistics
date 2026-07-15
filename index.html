@@ -3,329 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOG Dispatch — Keystone Operations Group</title>
+  <title>KOG — Medical &amp; Local Transport</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Barlow+Condensed:ital,wght@0,300;0,900;1,900&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <!-- Custom cursor -->
-  <div id="cur-ring"></div>
-  <div id="cur-dot"></div>
-
-  <!-- Intro wipe -->
-  <div id="intro">
-    <div class="intro-word">KOG</div>
-    <div class="intro-bar"></div>
-  </div>
-
-  <!-- NAV -->
-  <nav id="nav">
-    <a href="#" class="nav-logo">KOG</a>
-    <div class="nav-center">
-      <span>KEYSTONE OPERATIONS GROUP</span>
-      <span class="nav-sep">·</span>
-      <span class="nav-status"><span class="dot-green"></span>DISPATCHING NOW</span>
+  <header>
+    <div class="header-inner">
+      <div class="logo">KOG</div>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">Book a Ride</a>
+      </nav>
     </div>
-    <a href="#contact" class="nav-deploy" data-hover="DISPATCH">GET DISPATCHED</a>
-  </nav>
+  </header>
 
-  <!-- ═══════════════════════════
-       HERO
-  ════════════════════════════ -->
-  <section id="hero">
-    <div class="hero-img-wrap">
-      <div class="hero-img" id="hero-img"
-           style="background-image:url('images/hotshot_ford_flatbed.webp')">
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Keystone Operations Group</span>
+      <h1>Reliable transport, <em>personal care</em>.</h1>
+      <p class="subtitle">Non-emergency medical rides and local delivery across the region — on time, every time, with a friendly hand along the way.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn">Book a Ride</a>
+        <a href="#services" class="btn btn-ghost">Our Services</a>
       </div>
-      <div class="hero-grade"></div>
     </div>
+  </section>
 
-    <div class="hero-floor">
-      <div class="hero-fl-left">
-        <p class="hero-est"><span>EST.</span> 2009</p>
-        <p class="hero-tagline">Hotshot dispatch, done right.<br />We find the driver, book the load,<br />and keep it moving — 24/7.</p>
-      </div>
-      <div class="hero-fl-center">
-        <h1 class="hero-h1">
-          <em class="line-italic">Loads</em>
-          <span class="line-bold">DISPATCHED.</span>
-          <span class="line-bold">ON TIME.</span>
-        </h1>
-      </div>
-      <div class="hero-fl-right">
-        <div class="hero-scroll-cue">
-          <div class="scroll-track"><div class="scroll-thumb" id="scroll-thumb"></div></div>
-          <span>SCROLL</span>
+  <section id="services" class="section">
+    <div class="container">
+      <span class="section-eyebrow">What we do</span>
+      <h2>Services</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">&#128657;</div>
+          <h3>Non-Emergency Medical Transport</h3>
+          <p>Comfortable, door-to-door rides to appointments, dialysis, and hospital discharge — with an attendant who genuinely cares.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128230;</div>
+          <h3>Local Courier &amp; Delivery</h3>
+          <p>Same-day pickup and drop-off for local businesses and residents. Documents, supplies, and small parcels handled with care.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128666;</div>
+          <h3>Cargo Van Moves</h3>
+          <p>Small loads, single-item pickups, and light moves across town. No job too small, and always handled gently.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128197;</div>
+          <h3>Scheduled &amp; Recurring Runs</h3>
+          <p>Regular rides and repeat delivery routes planned around your calendar, so you always know we&rsquo;ll be there.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════
-       MANIFESTO — word reveal
-  ════════════════════════════ -->
-  <section id="manifesto">
-    <div class="manifesto-inner">
-      <p class="manifesto-p" id="manifesto-text">
-        We don't book loads and hope for the best. Our dispatchers work the phones, the load boards, and the routes — matching your freight with vetted hotshot carriers before the competition even picks up. When a load can't wait, we've already got wheels turning.
-      </p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       DRIVE — real photo scroll sequence
-  ════════════════════════════ -->
-  <section id="drive">
-    <div class="drive-sticky">
-
-      <div class="drive-scene" id="ds-0"
-           style="background-image:url('images/hotshot_small_a.webp')"></div>
-      <div class="drive-scene" id="ds-1"
-           style="background-image:url('images/hotshot_ford_trailer.webp')"></div>
-      <div class="drive-scene" id="ds-2"
-           style="background-image:url('images/hotshot_ram_sunset.webp')"></div>
-
-      <div class="drive-grade"></div>
-
-      <div class="drive-copy-wrap">
-        <div class="drive-copy" id="dc-0">
-          <span class="section-tag">LOAD COORDINATION</span>
-          <h2 class="drive-h2">Matched fast.<br /><em>Moving now.</em></h2>
-        </div>
-        <div class="drive-copy" id="dc-1">
-          <span class="section-tag">DRIVER NETWORK</span>
-          <h2 class="drive-h2">Vetted carriers.<br /><em>Ready to roll.</em></h2>
-        </div>
-        <div class="drive-copy" id="dc-2">
-          <span class="section-tag">24 / 7 COVERAGE</span>
-          <h2 class="drive-h2">The clock<br /><em>doesn't stop.</em></h2>
-        </div>
+  <section id="about" class="section alt">
+    <div class="container two-col">
+      <div>
+        <span class="section-eyebrow">About us</span>
+        <h2>About KOG</h2>
+        <p>Keystone Operations Group provides friendly, dependable transportation for our neighbors and local businesses. Whether it&rsquo;s a ride to a medical appointment or a same-day delivery across town, we show up on time and treat every passenger and package with care.</p>
+        <p>We&rsquo;re small enough to know your name and reliable enough to count on — every trip, every time.</p>
       </div>
-
-      <div class="drive-progress-wrap">
-        <div class="drive-progress-bar" id="drive-bar"></div>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num">On&#8209;Time</span>
+          <span class="stat-label">Arrivals You Can Count On</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">7&#8209;Day</span>
+          <span class="stat-label">Availability, Including Weekends</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">Fully</span>
+          <span class="stat-label">Licensed &amp; Insured</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════
-       CAPABILITIES — hover reveal
-  ════════════════════════════ -->
-  <section id="capabilities">
-    <div class="cap-left">
-      <div class="cap-img-stage">
-        <div class="cap-img-item active" data-cap-img="0"
-             style="background-image:url('images/hotshot_ford_flatbed.webp')"></div>
-        <div class="cap-img-item" data-cap-img="1"
-             style="background-image:url('images/hotshot_small_a.webp')"></div>
-        <div class="cap-img-item" data-cap-img="2"
-             style="background-image:url('images/hotshot_ford_trailer.webp')"></div>
-        <div class="cap-img-item" data-cap-img="3"
-             style="background-image:url('images/hotshot_ram_sunset.webp')"></div>
-        <div class="cap-img-overlay"></div>
-      </div>
-    </div>
-
-    <div class="cap-right">
-      <div class="cap-header">
-        <span class="section-tag">DISPATCH SERVICES</span>
-      </div>
-
-      <ul class="cap-list">
-        <li class="cap-item active" data-cap="0">
-          <div class="cap-item-inner">
-            <span class="cap-idx">01</span>
-            <div class="cap-item-body">
-              <h3>Load<br />Matching</h3>
-              <p>We source qualified hotshot carriers fast — F-350s and Ram 3500s on flatbed goosenecks. No broker chain, no delays. Load posted and covered, same shift.</p>
-            </div>
-            <span class="cap-arrow">↗</span>
-          </div>
-        </li>
-        <li class="cap-item" data-cap="1">
-          <div class="cap-item-inner">
-            <span class="cap-idx">02</span>
-            <div class="cap-item-body">
-              <h3>24 / 7<br />Live Dispatch</h3>
-              <p>A real dispatcher on the line around the clock. Midnight pickup? Weekend emergency? We handle it. Your freight doesn't wait for business hours.</p>
-            </div>
-            <span class="cap-arrow">↗</span>
-          </div>
-        </li>
-        <li class="cap-item" data-cap="2">
-          <div class="cap-item-inner">
-            <span class="cap-idx">03</span>
-            <div class="cap-item-body">
-              <h3>Route &amp;<br />Compliance</h3>
-              <p>DOT regulations, state permits, weight limits, hazmat routing. We clear every checkpoint before wheels roll so drivers never get held at a scale.</p>
-            </div>
-            <span class="cap-arrow">↗</span>
-          </div>
-        </li>
-        <li class="cap-item" data-cap="3">
-          <div class="cap-item-inner">
-            <span class="cap-idx">04</span>
-            <div class="cap-item-body">
-              <h3>Driver<br />Coordination</h3>
-              <p>Direct communication with verified owner-operators across oilfield corridors, remote job sites, and off-pavement final miles. We keep every driver accountable.</p>
-            </div>
-            <span class="cap-arrow">↗</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       FIELD — editorial split
-  ════════════════════════════ -->
-  <section id="field">
-    <div class="field-text">
-      <span class="section-tag">THE DISPATCH DESK</span>
-      <h2 class="field-h2">One call.<br /><em>Load covered.</em></h2>
-      <div class="field-body">
-        <p>Our dispatchers don't just post to a load board and wait. We work our network of vetted hotshot owner-operators — F-350 and Ram 3500 duallies on flatbed goosenecks — and get your freight matched, confirmed, and rolling in hours, not days.</p>
-        <ul>
-          <li>Load board access &amp; carrier outreach</li>
-          <li>Owner-operator vetting &amp; insurance verification</li>
-          <li>DOT compliance &amp; permit coordination</li>
-          <li>Real-time status updates to shipper &amp; receiver</li>
-        </ul>
-      </div>
-    </div>
-    <div class="field-visual">
-      <div class="field-img"
-           style="background-image:url('images/hotshot_small_b.jpg')">
-      </div>
-      <div class="field-stat-pill">
-        <span class="pill-n">100%</span>
-        <span class="pill-l">Load<br />Completion Rate</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       NUMBERS — single-stat drama
-  ════════════════════════════ -->
-  <section id="numbers">
-    <div class="numbers-bg"
-         style="background-image:url('https://images.pexels.com/photos/30484147/pexels-photo-30484147.jpeg?auto=compress&cs=tinysrgb&w=1920')">
-    </div>
-    <div class="numbers-grade"></div>
-    <div class="numbers-inner">
-      <div class="num-ticker">
-        <div class="num-item active" data-n="0">
-          <div class="big-num" data-target="15" data-suf="+">15+</div>
-          <div class="big-label">Years dispatching hotshot freight across every major oilfield corridor in North America.</div>
-        </div>
-        <div class="num-item" data-n="1">
-          <div class="big-num" data-target="100" data-suf="%">100%</div>
-          <div class="big-label">Load completion rate. Every shipment dispatched gets delivered. No exceptions, no excuses.</div>
-        </div>
-        <div class="num-item" data-n="2">
-          <div class="big-num" data-target="500" data-suf="+">500+</div>
-          <div class="big-label">Verified owner-operators in our carrier network, ready to roll on your timeline.</div>
-        </div>
-        <div class="num-item" data-n="3">
-          <div class="big-num">24/7</div>
-          <div class="big-label">Live dispatcher coverage. A real person on every call — no voicemail, no hold music, no delays.</div>
-        </div>
-      </div>
-      <div class="num-nav">
-        <button class="num-dot active" data-target="0"></button>
-        <button class="num-dot" data-target="1"></button>
-        <button class="num-dot" data-target="2"></button>
-        <button class="num-dot" data-target="3"></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       CONTACT — mission brief
-  ════════════════════════════ -->
-  <section id="contact">
-    <div class="contact-header">
-      <span class="section-tag">INITIATE DISPATCH</span>
-      <h2 class="contact-h2">Need a load<br /><em>moved?</em></h2>
-    </div>
-    <div class="contact-body">
-      <div class="contact-meta">
-        <div class="meta-item">
-          <span class="mk">AVAILABILITY</span>
-          <span class="mv"><span class="dot-green"></span>24 / 7</span>
-        </div>
-        <div class="meta-item">
-          <span class="mk">RESPONSE</span>
-          <span class="mv">&lt; 2 HOURS</span>
-        </div>
-        <div class="meta-item">
-          <span class="mk">COVERAGE</span>
-          <span class="mv">NATIONWIDE</span>
-        </div>
-        <div class="meta-item">
-          <span class="mk">CARRIER NETWORK</span>
-          <span class="mv">500+ DRIVERS</span>
-        </div>
-      </div>
-      <form id="cform" class="contact-form">
+  <section id="contact" class="section">
+    <div class="container">
+      <span class="section-eyebrow">Get in touch</span>
+      <h2>Book a Ride or Delivery</h2>
+      <p class="contact-intro">Tell us where you need to go and when — we&rsquo;ll take care of the rest.</p>
+      <form id="contact-form">
         <div class="form-row">
-          <div class="fld">
-            <label>NAME</label>
-            <input type="text" placeholder="Full name" required />
-          </div>
-          <div class="fld">
-            <label>EMAIL</label>
-            <input type="email" placeholder="Email address" required />
-          </div>
+          <input type="text" id="name" placeholder="Your name" required />
+          <input type="tel" id="phone" placeholder="Phone number" />
         </div>
-        <div class="form-row">
-          <div class="fld">
-            <label>COMPANY / SHIPPER</label>
-            <input type="text" placeholder="Company or business name" />
-          </div>
-          <div class="fld">
-            <label>LOAD URGENCY</label>
-            <select>
-              <option value="">Select priority</option>
-              <option>Same-day — ASAP</option>
-              <option>Urgent — &lt;24 hrs</option>
-              <option>Standard — &lt;72 hrs</option>
-              <option>Scheduled — planning ahead</option>
-            </select>
-          </div>
-        </div>
-        <div class="fld full">
-          <label>LOAD DETAILS</label>
-          <textarea rows="4" placeholder="Origin, destination, commodity, weight, dimensions, and any special requirements..." required></textarea>
-        </div>
-        <div class="form-footer">
-          <p id="fstatus"></p>
-          <button type="submit" class="submit-btn">
-            <span class="btn-text">SUBMIT LOAD REQUEST</span>
-            <span class="btn-icon">→</span>
-          </button>
-        </div>
+        <input type="email" id="email" placeholder="Email" required />
+        <textarea id="message" rows="5" placeholder="Where are you headed, and when? Pickup, drop-off, date and time&hellip;" required></textarea>
+        <button type="submit" class="btn">Send Request</button>
+        <p id="form-status" class="form-status"></p>
       </form>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <div class="foot-left">
-      <span class="foot-logo">KOG</span>
-    </div>
-    <div class="foot-center">
-      <span>KEYSTONE OPERATIONS GROUP</span>
-      <span>HOTSHOT DISPATCH SERVICES</span>
-      <span>&copy; 2026</span>
-    </div>
-    <div class="foot-right">
-      <span class="dot-green"></span>
-      <span>DISPATCHING LIVE</span>
-    </div>
+    <p>&copy; 2026 Keystone Operations Group &middot; Medical &amp; Local Transport</p>
   </footer>
 
   <script src="main.js"></script>
